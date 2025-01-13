@@ -297,10 +297,6 @@ function renderUpgradeHelper(upgrade) {
 }
 
 
-function showUpgradeTesting() {
-    //renderUpgrade(gameData.buildings[0])
-}
-
 function saveGame() {
     // console.log('Saving...')
     const stringGameData = JSON.stringify(gameData);
@@ -315,11 +311,11 @@ function setCPS() {
         
         if (building.upgrades > 0) { buildingCPS = (building.count * building.baseCPS) * (2 ** building.upgrades)}
         else { buildingCPS = (building.count * building.baseCPS) }        
-        //console.log(`${building.count} * ${building.baseCPS} = ${cps}` )
+
         cps += buildingCPS
     })
     gameData.cps = cps
-    //console.log(`Calculated CPS: ${cps}`)
+
 }
 
 function renderCPS() {
