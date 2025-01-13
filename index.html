@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Clicker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="cookie-container">
+        <div class="tiny-cookie-container">
+            <div class="tiny-cookie"></div>
+            <span id="cookieCountText" class="cookie-count">Cookies: </span>
+            <span id="cookieCountNum" class="cookie-count-num">0</span>
+        </div>
+
+        <div class="cps-container">
+            <span id="cpsSpan" class="cps-span">Cookies Per Second: </span>
+            <span id="cpsText" class="cps-span"></span>
+        </div>
+
+        <div id="cookie" class="cookie" onclick="cookieClick()"></div>
+    </div>
+
+    
+
+    <div class="store-container">
+        <div id="upgradeContainer" class="upgrade-container">
+            <span id="upgradeReadyText" class="upgrade-text">Upgrade Available!</span>
+        </div>
+
+
+
+        <div id="clickerLevel" class="building-level">
+            <span class="building-level-text">Level: </span>
+            <span id="clickerLevelElement" class="building-level">1</span>
+        </div>
+
+        <div class="button-row">
+            <span id="clickerCount" class="counter">0</span>
+            <button id="clickerBtn" onclick='purchaseBuilding("clicker")'>Clicker</button>
+            <span id="clickerPrice" class="price">$10</span>            
+        </div>
+
+
+
+        <div id="grandmaLevel" class="building-level">
+            <span class="building-level-text">Level: </span>
+            <span id="grandmaLevelElement" class="building-level">1</span>
+        </div>
+
+        <div class="button-row">
+            <span id="grandmaCount" class="counter">0</span>
+            <button id="grandmaBtn" onclick='purchaseBuilding("grandma")'>Grandma</button>
+            <span id="grandmaPrice" class="price">$30</span>            
+        </div>
+
+
+
+        <div id="farmLevel" class="building-level">
+            <span class="building-level-text">Level: </span>
+            <span id="farmLevelElement" class="building-level">1</span>
+        </div>
+
+        <div class="button-row">
+            <span id="farmCount" class="counter">0</span>
+            <button id="farmBtn" onclick='purchaseBuilding("farm")'>Farm</button>
+            <span id="farmPrice" class="price">$100</span>
+            
+        </div>
+
+
+
+        <div id="factoryLevel" class="building-level">
+            <span class="building-level-text">Level: </span>
+            <span id="factoryLevelElement" class="building-level">1</span>
+        </div>
+
+        <div class="button-row">
+            <span id="factoryCount" class="counter">0</span>
+            <button id="factoryBtn" onclick='purchaseBuilding("factory")'>Factory</button>
+            <span id="factoryPrice" class="price">$100</span>
+            
+        </div>
+
+
+
+        <div id="portalLevel" class="building-level">
+            <span class="building-level-text">Level: </span>
+            <span id="portalLevelElement" class="building-level">1</span>
+        </div>
+
+        <div class="button-row">
+            <span id="portalCount" class="counter">0</span>
+            <button id="portalBtn" onclick='purchaseBuilding("portal")'>Portal</button>
+            <span id="portalPrice" class="price">$100</span>
+            
+        </div>
+
+
+
+        
+
+
+        
+        <div class="button-row">
+            <button id="ResetBtn" class="reset-button" onclick='hardReset()'>RESET</button>
+        </div>
+
+
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
