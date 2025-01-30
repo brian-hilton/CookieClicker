@@ -1,5 +1,8 @@
 const storageKey = "gameData"
 
+buildingPriceMultiplier = 1.18;     // Math.round((building.basePrice * (buildingPriceMultiplier ** building.count)))
+upgradePriceExponent = 10           // upgradePrice = building.basePrice * (upgradePriceExponent ** (Math.floor(building.count / 10)))
+
 /*
 If we want to add more new buildings, there are several steps:
 1. Add buildingLevel and button-row HTML DIV elements
@@ -75,7 +78,7 @@ function cookieClick() {
 }
 
 function incrementCookies() {
-    gameData.cookieCount += 1000000
+    gameData.cookieCount += 10000000
     renderCookieCount()
 }
 
@@ -134,7 +137,7 @@ function purchaseAttempt(building) {
 }
 
 function calculatePrice(building) {
-    return Math.round((building.basePrice * (1.18 ** building.count)))
+    return Math.round((building.basePrice * (buildingPriceMultiplier ** building.count)))
 }
 function renderPrice(building) {
     // intended to be called when game loaded and any purchase is made
@@ -204,15 +207,20 @@ function getBuildingIndexByName(building_name) {
     }
 }
 
+function removeUpgradeListItem(upgradeID, upgradePrice) {
+    let newUpgradeList = [];
+    newUpgradeList = gameData.upgradeButtonList.filter(item => !(item.id === upgradeID && item.price === upgradePrice));
+    gameData.upgradeButtonList = newUpgradeList;
+}
+
 function purchaseUpgrade(upgradeID, upgradePrice) {  
     const idx = getBuildingIndexByName(upgradeID);
-    const upgrade = {id: upgradeID, price: upgradePrice}
 
     if (gameData.cookieCount >= upgradePrice) {
         gameData.buildings[idx].upgrades += 1;
         gameData.cookieCount -= upgradePrice;
-        gameData.upgradeButtonList.pop(upgrade)
-
+        
+        removeUpgradeListItem(upgradeID, upgradePrice);
         removeUpgrade(upgradeID, upgradePrice);
         renderCookieCount();
         renderLevels();
@@ -234,6 +242,17 @@ function removeUpgrade(id, price) {
     }
 }
 
+function printUpgradeButtonList() {
+    upgradeList = gameData.upgradeButtonList
+
+    if (!upgradeList || upgradeList.length == 0) { console.log("No upgrades in list")}
+
+    upgradeList.forEach(upgrade => {
+        console.log(`${upgrade.id} upgrade price: ${upgrade.price}`)
+    })
+    console.log('\n\n')
+}
+
 function renderUpgrade(building){ 
     // Only called when a building is purchased
     // Check if player has upgrade available, push to upgrade list, call renderUpgradeHelper
@@ -244,7 +263,7 @@ function renderUpgrade(building){
     // const price = building.basePrice * (10 ** (Math.floor(building.count / 10)));
     // renderUpgradeHelper(building, price)
 
-    const upgradePrice = building.basePrice * (10 ** (Math.floor(building.count / 10)))
+    const upgradePrice = building.basePrice * (upgradePriceExponent ** (Math.floor(building.count / 10)))
     const upgradeID = building.id
 
     newUpgrade = {id: upgradeID, price: upgradePrice}
@@ -298,7 +317,7 @@ function renderUpgradeHelper(upgrade) {
 
 
 function saveGame() {
-    // console.log('Saving...')
+    //console.log('Saving...')
     const stringGameData = JSON.stringify(gameData);
     localStorage.setItem(storageKey, stringGameData)   // this will override any existing stored buildings to make sure we are always keeping the latest version
 }
@@ -358,7 +377,7 @@ function clearUpgrades() {
     gameData.upgradeButtonList.forEach(upgrade => {
         upgradeElement = document.getElementById(`upgrade-${upgrade.id}-${upgrade.price}`)
         if (upgradeElement) {
-            console.log('removing element')
+            //console.log('removing element')
             upgradeElement.remove();
         }
     })    
